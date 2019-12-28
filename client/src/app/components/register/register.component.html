@@ -1,0 +1,83 @@
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <mdb-card>
+        <!--Card content-->
+        <mdb-card-body>
+      
+          <!--Title-->
+          <mdb-card-title>
+            <h4>Sign Up User</h4>
+          </mdb-card-title>
+          
+          <form>
+            <div class="row">
+              <!-- Grid column -->
+              <div class="col-lg-6">
+                <div class="md-form">
+                  <mdb-icon fas icon="user-alt" class="prefix"></mdb-icon>
+                  <input mdbInput type="email" class="form-control" id="name">
+                  <label for="name">Name</label>
+                </div>
+              </div>
+              <!-- Grid column -->
+          
+              <!-- Grid column -->
+              <div class="col-lg-6">
+                <div class="md-form">
+                  <mdb-icon fas icon="mobile-alt" class="prefix"></mdb-icon>
+                  <input mdbInput type="text" class="form-control" id="mobile">
+                  <label for="mobile">Mobile</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [(ngModel)]="role" [value]="Teacher" type="radio" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample" mdbInput>
+                  <label class="custom-control-label" for="defaultInline1">Teacher</label>
+                </div>
+
+                <div class="custom-control custom-radio custom-control-inline">
+                  <input [(ngModel)]="role" [value]="Student" type="radio" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample" mdbInput>
+                  <label class="custom-control-label" for="defaultInline2">Student</label>
+                </div>               
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="md-form">
+                  <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                  <input mdbInput type="email"
+                         class="form-control" id="form9">
+                  <label for="form9">Email</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="md-form mt-0">
+                  <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+                  <input mdbInput type="password"
+                         class="form-control" id="form10">
+                  <label for="form10">Password</label>
+                </div>
+              </div>
+            </div>
+
+            <button (click)="registerButtonClick()" mdbBtn type="button" color="secondary" rounded="true" mdbWavesEffect>Create User</button>
+
+          </form>
+      
+        </mdb-card-body>
+
+        <div class="card-footer text-muted mt-4">
+          Already an user ? Login <a [routerLink]="['/user/auth']" routerLinkActive="router-link-active" >here</a>
+        </div>
+      </mdb-card>
+    </div>
+  </div>
+</div>

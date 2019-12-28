@@ -1,0 +1,40 @@
+<div class="container pt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <mdb-card>
+        <!--Card content-->
+        <mdb-card-body>
+      
+          <!--Title-->
+          <mdb-card-title>
+            <h4>Sign In User</h4>
+          </mdb-card-title>
+      
+          <form>
+            <div class="md-form">
+              <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+              <input mdbInput minLength="8" maxLength="25" type="email"
+                     class="form-control" id="form9">
+              <label for="form9">Type your e-mail</label>
+            </div>
+          
+            <div class="md-form">
+              <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+              <input mdbInput minLength="10" maxLength="25" type="password"
+                     class="form-control" id="form10">
+              <label for="form10">Type your password</label>
+            </div>
+
+            <button mdbBtn type="button" color="secondary" rounded="true" mdbWavesEffect>Login</button>
+
+          </form>
+      
+        </mdb-card-body>
+
+        <div class="card-footer text-muted mt-4">
+          Not an user yet ? Register <a [routerLink]="['/user/register']" routerLinkActive="router-link-active" >here</a>
+        </div>
+      </mdb-card>
+    </div>
+  </div>
+</div>
