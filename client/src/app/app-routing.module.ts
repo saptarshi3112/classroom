@@ -5,21 +5,28 @@ import { AuthComponent } from './components/auth/auth.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RoomComponent } from './components/room/room.component';
 import { AuthGuard } from './services/guard.service';
+import { LogoutComponent } from './components/logout/logout.component';
 
 const routes: Routes = [
   {
-    component: HomeComponent, 
+    component: HomeComponent,
     path: 'home',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   {
-    component: AuthComponent, path: 'user/auth' 
+    component: AuthComponent, path: 'user/auth'
   },
   {
     component: RegisterComponent, path: 'user/register'
   },
   {
-    component: RoomComponent, path: 'user/classroom/:id', canActivate: [AuthGuard]
+    component: RoomComponent,
+    path: 'classroom/:id',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: LogoutComponent,
+    path: 'user/logout'
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: HomeComponent }

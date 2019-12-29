@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
     if (this._authService.isAuthenticated()) {
-        return false;
+        return true;
     }
     this._router.navigate(['/user/auth']);
     return false;

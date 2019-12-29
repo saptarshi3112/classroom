@@ -10,20 +10,17 @@ import {
 })
 export class AuthService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   private url = 'http://localhost:5000';
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem('token')) {
-      return true;
-    } else {
-      return false;
-    }
+    return !!localStorage.getItem('token');
   }
 
   signInUser(email: string, password: string) {
-    return this._http.post(`${this.url}/user/signInUser`, {
+    console.log('go');
+    return this.http.post(`${this.url}/user/signInUser`, {
       email: email,
       password: password
     })
@@ -31,7 +28,7 @@ export class AuthService {
   }
 
   signUpUser(name: string, role: string, email: string, password: string, mobile: string) {
-    return this._http.post(`${this.url}/user/signUpUser`, {
+    return this.http.post(`${this.url}/user/signUpUser`, {
       name: name,
       role: role,
       password: password,
@@ -40,5 +37,9 @@ export class AuthService {
     })
       .pipe(map(res => res));
   }
-  
+
+  signOutUser() {
+    localStorage.clear();
+  }
+
 }

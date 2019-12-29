@@ -4,31 +4,37 @@
       <mdb-card>
         <!--Card content-->
         <mdb-card-body>
-      
+
           <!--Title-->
           <mdb-card-title>
             <h4>Sign In User</h4>
           </mdb-card-title>
-      
+
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+
           <form>
             <div class="md-form">
               <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
-              <input [(ngModel)]="email" name="email" mdbInput minLength="8" maxLength="25" type="email"
+              <input [(ngModel)]="email" name="email" mdbInput type="email"
                      class="form-control" id="form9">
               <label for="form9">Type your e-mail</label>
+              <small class="text-danger">{{ errors.emailError }}</small>
             </div>
-          
+
             <div class="md-form">
               <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-              <input [(ngModel)]="password" name="password" mdbInput minLength="10" maxLength="25" type="password"
+              <input [(ngModel)]="password" name="password" mdbInput type="password"
                      class="form-control" id="form10">
               <label for="form10">Type your password</label>
+              <small class="text-danger">{{ errors.passwordError }}</small>
             </div>
 
-            <button mdbBtn type="button" color="secondary" rounded="true" mdbWavesEffect>Login</button>
+            <button mdbBtn type="button" (click)="signInUser()" color="primary" rounded="true" mdbWavesEffect>Login</button>
 
           </form>
-      
+
         </mdb-card-body>
 
         <div class="card-footer text-muted mt-4">

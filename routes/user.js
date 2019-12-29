@@ -55,7 +55,6 @@ router.post('/signInUser', (req, res) => {
                   if (match) {
                     generateToken({
                       name: user.name,
-                      role: user.role,
                       email: user.email,
                       mobile: user.mobile
                     })
@@ -101,7 +100,6 @@ router.post('/signUpUser', (req, res) => {
             name,
             mobile,
             email, 
-            role,
             password
           } = body;
 
@@ -127,8 +125,7 @@ router.post('/signUpUser', (req, res) => {
                     let newUser = new User({
                       name: name,
                       mobile: mobile,
-                      email: email,
-                      role: role
+                      email: email
                     });
   
                     hashPassword(password)
@@ -141,7 +138,6 @@ router.post('/signUpUser', (req, res) => {
                           } else {
                             generateToken({
                               name: newUser.name,
-                              role: newUser.role,
                               email: newUser.email,
                               mobile: newUser.mobile
                             }).then(token => {
@@ -164,6 +160,21 @@ router.post('/signUpUser', (req, res) => {
 
       })
       .catch(err => console.error(err));
+  }
+});
+
+router.post('/getUserDetailsFromToken', (req, res) => {
+  const body = req.body;
+  if (!body) {
+    res.json({
+      message: 'BODY404'
+    });
+  } else {
+    const token = body['token'];
+
+    console.log(token);
+
+    res.json('got it');
   }
 });
 
