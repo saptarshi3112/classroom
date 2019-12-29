@@ -4,11 +4,10 @@ const router = express.Router();
 const User = require('../models/User');
 
 const {
-  validateEmail,
   checkPassword,
   generateToken,
   hashPassword,
-  cleanMobileNumberAndEmail
+  clearMobileNumber
 } = require('../controllers/userController');
 
 const {
@@ -54,10 +53,15 @@ router.post('/signInUser', (req, res) => {
               checkPassword(password, user.password)
                 .then(match => {
                   if (match) {
-                    generateToken(user)
+                    generateToken({
+                      name: user.name,
+                      role: user.role,
+                      email: user.email,
+                      mobile: user.mobile
+                    })
                       .then(token => {
                         res.json({
-                          token: token
+                          token: `Bearer ${token}`
                         });
                       })
                       .catch(err => console.error(err));
@@ -70,7 +74,6 @@ router.post('/signInUser', (req, res) => {
                 .catch(err => console.error(err));
             }
           });
-
         }
       })
       .catch(err => console.error(err));
@@ -102,11 +105,65 @@ router.post('/signUpUser', (req, res) => {
             password
           } = body;
 
+          clearMobileNumber(mobile)
+          .then(editMobile => {
+            User.findOne({
+              $or: [
+                { email: email },
+                { mobile: editMobile }
+              ]
+            }, (err, user) => {
+              if (err) {
+                throw err;
+              } else if (user) {
+                res.json({
+                  message: 'USERALREADYEXISTS'
+                });
+              } else {
+                
+                clearMobileNumber(mobile)
+                  .then(mobile => {
+                    
+                    let newUser = new User({
+                      name: name,
+                      mobile: mobile,
+                      email: email,
+                      role: role
+                    });
+  
+                    hashPassword(password)
+                      .then(hashedPassword => {
+                        newUser.password = hashedPassword;
+  
+                        newUser.save(err => {
+                          if (err) {
+                            throw err;
+                          } else {
+                            generateToken({
+                              name: newUser.name,
+                              role: newUser.role,
+                              email: newUser.email,
+                              mobile: newUser.mobile
+                            }).then(token => {
+                              res.json({
+                                token: `Bearer ${token}`
+                              });
+                            })
+                            .catch(err => console.error(err));
+                          }
+                        });
+                      })
+                      .catch(err => console.error(err));
+                  })
+                  .catch(err => console.error(err));
+              }
+            });
+          })
+          .catch(err => console.error(err));
         }
 
       })
       .catch(err => console.error(err));
-
   }
 });
 

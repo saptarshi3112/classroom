@@ -3,32 +3,17 @@ const bcrypt = require('bcryptjs');
 
 const config = require('../config/config');
 
-module.exports.validateEmail = email => {
-  return new Promise((resolve, reject) => {
-    if (!email) {
-      reject("Email invalid")
-    } else {
-      if (email.length <= 0) {
-        resolve("Email length is 0");
-      } else {
-        const emailRegex = new RegExp(email, 'g');
-        resolve('OK');
-      }
-    }
-  });
-}
-
 module.exports.hashPassword = password => {
   return new Promise((resolve, reject) => {
     bcrypt.genSalt((err, salt) => {
       if (err) {
         reject(err);
       } else {
-        bcrypt.hash(password, salt, (err, hash) => {
+        bcrypt.hash(password, salt, (err, hashedPassword) => {
           if (err) {
             reject(err); 
           } else {
-            resolve(hash);
+            resolve(hashedPassword);
           }
         })
       }
@@ -61,3 +46,23 @@ module.exports.generateToken = user => {
     }
   });
 }
+
+module.exports.clearMobileNumber = mobile => {
+  return new Promise((resolve, reject) => {
+
+    console.log(mobile);
+    if (mobile.length <= 9) {
+      reject("Mobile Number invalid");
+    }
+
+    if (mobile.length === 11 && mobile[0] === '0') {
+      resolve(mobile.substr(1, mobile.length-1));
+    } else if (mobile.length === 12 && mobile[0] === '9' && mobile[1] === '1') {
+      resolve(mobile.substr(2, mobile.length-1));
+    } else if (mobile.length === 13 && mobile[0] === '+' && mobile[1] === '9' && mobile[2] === '1') {
+      resolve(mobile.substr(3, mobile.length-1));
+    } else {
+      resolve(mobile);
+    }
+  });
+};

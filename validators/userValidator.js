@@ -4,8 +4,8 @@ validateEmail = email => {
 }
 
 validateMobile = mobile => {
-  var re = /^$/g;
-  return true;
+  var re = /^(0|\+?91\s?)?[7-9][0-9]{9}$/g;
+  return re.test(String(mobile));
 }
 
 
@@ -22,14 +22,14 @@ module.exports.validateLoginModel = model => {
     };
 
     if (email.length > 0) {
-      if (validateEmail(email)) {
+      if (!validateEmail(email)) {
         errors.emailError = "Email address not valid"
       }
     } else {
       errors.emailError = "Email field blank"
     }
 
-    if (password.length > 0) {
+    if (password.length == 0) {
       errors.passwordError = "Password field blank"
     }
 
@@ -45,50 +45,52 @@ module.exports.validateLoginModel = model => {
 }
 
 module.exports.validateRegisterModel = model => {
-  const {
-    name,
-    password,
-    email,
-    mobile
-  } = model;
-
-  let errors = {
-    nameError: null,
-    mobileError: null,
-    emailError: null,
-    passwordError: null
-  };
-
-  if (name.length <= 0) {
-    errors.nameError = "Name field blank";
-  } if (password.length <= 0) {
-    errors.passwordError = "Password field blank";
-  }
-
-  if (mobile.length > 0) {
-    if (validateMobile(mobile)) {
-      errors.mobileError = "Mobile address not valid"
+  return new Promise((resolve, reject) => {
+    const {
+      name,
+      password,
+      email,
+      mobile
+    } = model;
+  
+    let errors = {
+      nameError: null,
+      mobileError: null,
+      emailError: null,
+      passwordError: null
+    };
+  
+    if (name.length <= 0) {
+      errors.nameError = "Name field blank";
     }
-  } else {
-    errors.mobileError = "Mobile field blank"
-  }
-
-  if (email.length > 0) {
-    if (validateEmail(email)) {
-      errors.emailError = "Email address not valid"
+    if (password.length <= 0) {
+      errors.passwordError = "Password field blank";
     }
-  } else {
-    errors.emailError = "Email field blank"
-  }
-
-  if (errors.nameError || errors.passwordError || errors.emailError || errors.mobileError) {
-    resolve(errors); 
-  } else {
-    resolve('OK');
-  }
-
-  reject(null);
-
+  
+    if (mobile.length > 0) {
+      if (!validateMobile(mobile)) {
+        errors.mobileError = "Mobile number not valid"
+      }
+    } else {
+      errors.mobileError = "Mobile field blank"
+    }
+  
+    if (email.length > 0) {
+      if (!validateEmail(email)) {
+        errors.emailError = "Email address not valid"
+      }
+    } else {
+      errors.emailError = "Email field blank"
+    }
+  
+    if (errors.nameError || errors.passwordError || errors.emailError || errors.mobileError) {
+      resolve(errors); 
+    } else {
+      resolve('OK');
+    }
+  
+    reject(null);
+  })
 }
 
 module.exports.updatePasswordModel = model => {
