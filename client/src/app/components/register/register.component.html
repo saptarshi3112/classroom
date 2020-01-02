@@ -2,32 +2,35 @@
   <div class="row justify-content-center">
     <div class="col-lg-6">
       <mdb-card>
-        <!--Card content-->
+        
         <mdb-card-body>
-      
-          <!--Title-->
+          
           <mdb-card-title>
             <h4>Sign Up User</h4>
           </mdb-card-title>
+
+          <div class="alert alert-danger" *ngIf="errorMessage">
+            {{ errorMessage }}
+          </div>
           
           <form>
             <div class="row">
-              <!-- Grid column -->
+              
               <div class="col-lg-6">
                 <div class="md-form">
                   <mdb-icon fas icon="user-alt" class="prefix"></mdb-icon>
-                  <input mdbInput type="email" class="form-control" id="name">
+                  <input [(ngModel)]="name" name="name" mdbInput type="text" class="form-control" id="name">
                   <label for="name">Name</label>
+                  <small class="text-danger" *ngIf="errors.nameError">{{ errors.nameError }}</small>
                 </div>
               </div>
-              <!-- Grid column -->
-          
-              <!-- Grid column -->
+              
               <div class="col-lg-6">
                 <div class="md-form">
                   <mdb-icon fas icon="mobile-alt" class="prefix"></mdb-icon>
-                  <input mdbInput type="text" class="form-control" id="mobile">
+                  <input [(ngModel)]="mobile" name="mobile" mdbInput type="text" class="form-control" id="mobile">
                   <label for="mobile">Mobile</label>
+                  <small class="text-danger" *ngIf="errors.mobileError">{{ errors.mobileError }}</small>
                 </div>
               </div>
             </div>
@@ -36,9 +39,10 @@
               <div class="col-lg-12">
                 <div class="md-form mt-0">
                   <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
-                  <input mdbInput type="email"
+                  <input [(ngModel)]="email" name="email" mdbInput type="email"
                          class="form-control" id="form9">
                   <label for="form9">Email</label>
+                  <small class="text-danger" *ngIf="errors.emailError">{{ errors.emailError }}</small>
                 </div>
               </div>
             </div>
@@ -47,9 +51,10 @@
               <div class="col-lg-12">
                 <div class="md-form mt-0">
                   <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
-                  <input mdbInput type="password"
+                  <input [(ngModel)]="password" name="password" mdbInput type="password"
                          class="form-control" id="form10">
                   <label for="form10">Password</label>
+                  <small class="text-danger" *ngIf="errors.passwordError">{{ errors.passwordError }}</small>
                 </div>
               </div>
             </div>

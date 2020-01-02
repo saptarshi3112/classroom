@@ -20,10 +20,22 @@ const userSchema = new schema({
     required: true,
     unique: true,
   },
+  image: {
+    type: String,
+    default: ''
+  },
   password: {
     type: String,
     required: true
-  }
+  },
+  joinedRooms: [{
+    type: schema.Types.ObjectId,
+    ref: 'classRoom'
+  }],
+  createdRooms: [{
+    type: schema.Types.ObjectId,
+    ref: 'classRoom'
+  }]
 });
 
 const model = mongoose.model('user', userSchema);

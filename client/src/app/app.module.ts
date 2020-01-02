@@ -18,6 +18,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './services/guard.service';
 
+import { NgxImageCompressService } from 'ngx-image-compress';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,10 +38,12 @@ import { AuthGuard } from './services/guard.service';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgbModule,
     MDBBootstrapModule.forRoot()
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    NgxImageCompressService
   ],
   bootstrap: [AppComponent]
 })

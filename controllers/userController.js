@@ -33,24 +33,8 @@ module.exports.checkPassword = (password, hash) => {
   });
 }
 
-module.exports.generateToken = user => {
-  return new Promise((resolve, reject) => {
-    const token = jwt.sign({
-      ...user,
-      password: null
-    }, config.secret);
-    if (token) {
-      resolve(token);
-    } else {
-      reject(null);
-    }
-  });
-}
-
 module.exports.clearMobileNumber = mobile => {
   return new Promise((resolve, reject) => {
-
-    console.log(mobile);
     if (mobile.length <= 9) {
       reject("Mobile Number invalid");
     }
@@ -66,3 +50,28 @@ module.exports.clearMobileNumber = mobile => {
     }
   });
 };
+
+module.exports.generateToken = user => {
+  return new Promise((resolve, reject) => {
+    const token = jwt.sign({
+      ...user,
+      password: null
+    }, config.secret);
+    if (token) {
+      resolve(token);
+    } else {
+      reject(null);
+    }
+  });
+}
+
+module.exports.decodeToken = token => {
+  return new Promise((resolve, reject) => {
+    const decodeData = jwt.decode(token);
+    if (!decodeData) {
+      reject(null);
+    } else {
+      resolve(decodeData);
+    }
+  });
+}

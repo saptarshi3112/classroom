@@ -1,2 +1,69 @@
-<app-navbar></app-navbar>
-<p>room works!</p>
+<div *ngIf="classRoomModel">
+  <div class="jumbotron bg-primary text-light text-bolder">
+    <img class="img-fluid" src={{classRoomModel.logo}} alt="">
+    <span class="ml-5">
+      <strong>Room Name</strong>: {{ classRoomModel.name }}
+    </span>
+    <span class="ml-5">
+      <strong>Room Id</strong>: {{ classRoomModel.codeWord }}
+    </span>
+    <span class="ml-5">
+      <strong>Creator:</strong>: {{ classRoomModel.creator.name }}
+    </span>
+    <div class="mt-2">
+      <a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="btn btn-info btn-sm">Leave Room</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-lg-8 mt-2">
+      <ngb-tabset type="pills">
+        <ngb-tab title="Classroom">
+          <ng-template ngbTabContent>
+            <p>
+              Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
+              master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
+              dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
+              iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+            </p>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Students">
+          <ng-template ngbTabContent>
+            <div class="container">
+              <div class="alert alert-secondary">Students</div>
+              <div *ngIf="classRoomModel.student.length > 0">
+                <ul class="list-group" *ngFor="let student of classRoomModel.student">
+                  <li class="list-group-item active">{{ student.name }}</li>
+                </ul>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Quizzes">
+          <ng-template ngbTabContent>
+            <div class="container">
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Assignments">
+          <ng-template ngbTabContent>
+            <div class="container">
+              Students
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset> 
+    </div>
+    <div class="col-lg-4 mt-2">
+      <div class="text-bold alert alert-primary">
+        Messages
+      </div>
+      <input placeholder="Start Typing..." type="text" class="form-control">
+      <div class="room-body">
+        <div class="container">
+          eiuwfhfwih
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

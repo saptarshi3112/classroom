@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  ActivatedRoute                  
+} from '@angular/router';
+import { ClassroomService } from 'src/app/services/classroom.service';
 
 @Component({
   selector: 'app-room',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomComponent implements OnInit {
 
-  constructor() { }
+  classRoomModel: Object;
+
+  constructor(private activatedRouter: ActivatedRoute, private classRoom: ClassroomService) { }
 
   ngOnInit() {
+    this.activatedRouter.params.subscribe(params => {
+      this.classRoom.getClassRoomDetailsFormId(params['id'])
+        .subscribe((res: any) => {
+          console.log(res.classroom);
+          this.classRoomModel = res.classroom;
+        });
+    });
   }
 
 }

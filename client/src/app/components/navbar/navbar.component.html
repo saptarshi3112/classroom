@@ -1,13 +1,76 @@
-<div  *ngIf="isAuthenticated">
-  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue-gradient">
+<div mdbModal #createClassModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mycreateClassModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createClassModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h5 class="modal-title" id="myModalLabel1">Create New Classroom</h5>
+      </div>
+      <div class="modal-body pt-0">
+        <div *ngIf="modalCreateMessage" class="alert alert-primary">
+          {{ modalCreateMessage }}
+        </div>
+        <form>
+          <div class="md-form">
+            <input [(ngModel)]="className" name="className" mdbInput type="text" class="form-control" id="form9">
+            <label for="form9">ClassRoom Name</label>
+          </div>
+
+          <div class="md-form">
+            <input [(ngModel)]="subject" name="subject" mdbInput type="text" class="form-control" id="form10">
+            <label for="form10">Subject (optional)</label>
+          </div>
+
+          <div class="md-form">
+            <button mdbBtn (click)="compressFile()">Upload ClassRoom Logo</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="createClassClick()" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Create Classroom</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mdbModal #joinClassRoom="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myjoinClassRoomLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="joinClassRoom.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel2">Join Classroom</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="md-form">
+            <input [(ngModel)]="roomId" name="roomId" mdbInput type="text" class="form-control" id="form11">
+            <label for="form11">Room ID</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="joinRoom()" type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect>Join</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAuthenticated">
+  <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark blue">
     <mdb-navbar-brand><a class="navbar-brand text-uppercase" [routerLink]="['/home']" routerLinkActive="router-link-active" >Classroom</a></mdb-navbar-brand>
     <links>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a (click)="createClass()" class="nav-link waves-light" mdbWavesEffect>Create Class</a>
+          <a class="nav-link waves-light" mdbWavesEffect>{{ userModel.name }}</a>
         </li>
         <li class="nav-item">
-          <a (click)="joinClass()" class="nav-link waves-light" mdbWavesEffect>Join Class</a>
+          <a (click)="createClassModal.show()" class="nav-link waves-light" mdbWavesEffect>Create ClassRoom</a>
+        </li>
+        <li class="nav-item">
+          <a (click)="joinClassRoom.show()" class="nav-link waves-light" mdbWavesEffect>Join ClassRoom</a>
         </li>
         <li class="nav-item">
           <a [routerLink]="['/user/logout']" class="nav-link waves-light">Logout</a>

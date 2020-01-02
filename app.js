@@ -8,6 +8,7 @@ const {
 } = require('./config/config');
 
 const userRouter = require('./routes/user');
+const roomRouter = require('./routes/classroom');
 
 mongoose.connect(db, {
   useNewUrlParser: true,
@@ -32,6 +33,7 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 app.use('/user/', userRouter);
+app.use('/classroom', roomRouter);
 
 const port = 5000;
 app.listen(port, err => {
