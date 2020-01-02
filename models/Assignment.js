@@ -5,21 +5,19 @@ const assignmentSchema = new schema({
   name: {
     type: String
   },
-  dueDate: {
-    type: Date,
-    required: true
+  description: {
+    type: String
   },
-  submittedBy: [{
-    type: schema.Types.ObjectId,
-    ref: 'user'
-  }],
-  defaulter: [{
-    type: schema.Types.ObjectId,
-    ref: 'user'
-  }],
   classroom: {
     type: schema.Types.ObjectId,
     ref: 'classRoom'
+  },
+  location: {
+    type: String
+  },
+  done: {
+    type: Boolean,
+    default: false
   }
 });
 

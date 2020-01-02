@@ -8,7 +8,6 @@ const ClassRoom = require('../models/Classroom');
  *  Method to create a new classroom using 
  *  the creators email, a code will be generated
  *  that the students can use to join in the classroom.
- * 
 */
 router.post('/createNewClassRoom', (req, res) => {
   const body = req.body;
@@ -45,8 +44,10 @@ router.post('/createNewClassRoom', (req, res) => {
 
             if (!subject) {
               subject = "";
-            } if (!logo) {
-              logo = "";
+            }
+
+            if (!logo) {
+              logo = "https://www.pinclipart.com/picdir/middle/388-3886129_google-classroom-logo-google-classroom-icon-clipart.png";
             }
 
             let newRoom = new ClassRoom({

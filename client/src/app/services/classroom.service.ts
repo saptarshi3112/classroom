@@ -40,4 +40,21 @@ export class ClassroomService {
       .pipe(map(res => res));
   }
 
+  createNewAssignment(name, description, classRoom, assignmentName, data, user) {
+    return this._http.post(`${this.url}/assignment/createNewAssignment`, {
+      name: name,
+      description: description,
+      classRoom: classRoom,
+      assignmentName: assignmentName,
+      data: data,
+      user: user,
+    })
+    .pipe(map(res => res));
+  }
+
+  getAllAssignmentsByRoom(id) {
+    return this._http.get(`${this.url}/assignment/getAssigmentByRoom/${id}`)
+      .pipe(map(res => res));
+  }
+
 }

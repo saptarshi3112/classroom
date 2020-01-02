@@ -1,7 +1,49 @@
+<div mdbModal #createClassModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mycreateClassModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="createClassModal.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h5 class="modal-title" id="myModalLabel1">Create New Assignment</h5>
+      </div>
+      <div *ngIf="assignmentErrorMessage">
+        <div class="alert alert-info">
+          {{ assignmentErrorMessage }}
+        </div>
+      </div>
+      <div class="modal-body pt-0">
+        <form>
+          
+          <div class="md-form">
+            <input [(ngModel)]="assignmentName" name="assignmentName" mdbInput type="text" class="form-control" id="form9">
+            <label for="form9">Assignment Name</label>
+          </div>
+
+          <div class="md-form">
+            <textarea type="text" name="description" [(ngModel)]="description" id="form7" class="md-textarea form-control" mdbInput></textarea>
+            <label for="form7">Assignment Description</label>
+          </div>
+          
+          <div class="mdb-form">
+            <div class="form-group">
+              <input (change)="fileChange($event)" type="file" class="btn" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="createNewAssignment()" type="button" mdbBtn color="primary" class="waves-light" mdbWavesEffect>Create Assignment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div *ngIf="classRoomModel">
-  <div class="jumbotron bg-primary text-light text-bolder">
-    <img class="img-fluid" src={{classRoomModel.logo}} alt="">
-    <span class="ml-5">
+  <div class="alert bg-primary text-light text-bolder">
+    <span>
       <strong>Room Name</strong>: {{ classRoomModel.name }}
     </span>
     <span class="ml-5">
@@ -17,41 +59,65 @@
   <div class="row justify-content-center">
     <div class="col-lg-8 mt-2">
       <ngb-tabset type="pills">
+
         <ngb-tab title="Classroom">
           <ng-template ngbTabContent>
-            <p>
+            <div class="mt-2">
               Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth
               master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh
               dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum
               iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-            </p>
+            </div>
           </ng-template>
         </ngb-tab>
+
         <ngb-tab title="Students">
           <ng-template ngbTabContent>
-            <div class="container">
-              <div class="alert alert-secondary">Students</div>
-              <div *ngIf="classRoomModel.student.length > 0">
-                <ul class="list-group" *ngFor="let student of classRoomModel.student">
-                  <li class="list-group-item active">{{ student.name }}</li>
-                </ul>
-              </div>
+            <div *ngIf="classRoomModel.student.length > 0">
+              <ul class="list-group" *ngFor="let student of classRoomModel.student">
+                <li class="list-group-item active">{{ student.name }}</li>
+              </ul>
             </div>
           </ng-template>
         </ngb-tab>
+
         <ngb-tab title="Quizzes">
           <ng-template ngbTabContent>
-            <div class="container">
-            </div>
           </ng-template>
         </ngb-tab>
+
         <ngb-tab title="Assignments">
           <ng-template ngbTabContent>
-            <div class="container">
-              Students
+            <div *ngIf="classRoomModel.creator._id === userModel._id">
+              <button (click)="createClassModal.show()" type="button" mdbBtn color="primary" mdbWavesEffect>Create New Assignment</button>
             </div>
+
+            <div class="row ml-3 mr-3 mt-3">
+              <div *ngFor="let assignment of assignments" class="col-lg-3">
+                <mdb-card>
+                  <mdb-card-body>
+                    <mdb-card-title>
+                      <h4>{{ assignment.name }}</h4>
+                    </mdb-card-title>
+                    <mdb-card-text>
+                      {{ assignment.description }}
+                    </mdb-card-text>
+                    <a 
+                      target="_blank" 
+                      href='http://localhost:5000/assignment/downloadAssignment/{{assignment._id}}' mdbBtn 
+                      color="primary" 
+                      class="btn-sm" 
+                      mdbWavesEffect>
+                        Get Assignment
+                    </a>
+                  </mdb-card-body>
+                </mdb-card>
+              </div>
+            </div>
+
           </ng-template>
         </ngb-tab>
+
       </ngb-tabset> 
     </div>
     <div class="col-lg-4 mt-2">
