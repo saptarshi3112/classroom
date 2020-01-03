@@ -8,6 +8,7 @@ const User = require('../models/User');
 
 const zipper = require('zip-local');
 
+// Create a new quiz for a classroom.
 router.post('/addNewQuiz', (req, res) => {
   const body = req.body;
   if (!body) {
@@ -69,6 +70,7 @@ router.post('/addNewQuiz', (req, res) => {
   }
 });
 
+// Get all quizzes for a room
 router.get('/getQuizzesByClassRoom/:id', (req, res) => {
   const params = req.params;
   if (!params) {
@@ -140,6 +142,7 @@ router.post('/submitQuizSolution', (req, res) => {
   }
 });
 
+// Export all submissions for a certain quiz.
 router.get('/exportFiles/quiz/:id', (req, res) => {
   const params = req.params;
   if (!params) {
@@ -171,4 +174,23 @@ router.get('/exportFiles/quiz/:id', (req, res) => {
   }
 });
 
+// Verify the validity of certain quizzes.
+router.post('/detectSimilarity', (req, res) => {
+	const body = req.body;
+	if (!body) {
+		res.json({
+			message: 'BODY404'
+		});
+	} else {
+
+		const {
+			file1, 
+			file2
+		} = body;
+
+
+	}
+});
+
 module.exports = router;
+
