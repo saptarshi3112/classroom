@@ -18,7 +18,11 @@ const quizSchema = new schema({
   date: {
     type: Date,
     default: Date.now()
-  }
+  },
+  submissions: [{
+    type: schema.Types.ObjectId,
+    ref: 'user'
+  }]
 });
 
 const model = mongoose.model('quiz', quizSchema);

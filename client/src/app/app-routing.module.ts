@@ -6,6 +6,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { RoomComponent } from './components/room/room.component';
 import { AuthGuard } from './services/guard.service';
 import { LogoutComponent } from './components/logout/logout.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
   {
     component: RoomComponent,
     path: 'classroom/:id',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: TestComponent,
+    path: 'test',
     canActivate: [AuthGuard]
   },
   {

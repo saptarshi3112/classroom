@@ -1,0 +1,44 @@
+<button (click)="goBack()" class="btn btn-info btn-sm">Back</button>
+<div class="alert alert-info text-center">
+  <h3>
+    Think submissions are suspicious. Test here !!!!
+  </h3>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-body>
+          Upload File 1
+          <form>
+            <div class="mdb-form">
+              <div class="form-group">
+                <input (change)="file1Change($event)" type="file" class="btn" aria-describedby="inputGroupFileAddon01">
+              </div>
+            </div>
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+    <div class="col-lg-6">
+      <mdb-card>
+        <mdb-card-body>
+          Upload File 2
+          <form>
+            <div class="mdb-form">
+              <div class="form-group">
+                <input (change)="file2Change($event)" type="file" class="btn" aria-describedby="inputGroupFileAddon01">
+              </div>
+            </div>
+          </form>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  </div>
+  <div class="row justify-content-center m-3">
+    <div class="col-lg-12 text-center">
+      <button (click)="testButtonClick()" mdbBtn color="primary">TEST</button>
+    </div>
+  </div>
+</div>

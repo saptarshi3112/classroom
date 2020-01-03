@@ -21,6 +21,7 @@ import { AuthGuard } from './services/guard.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TestComponent } from './components/test/test.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     RegisterComponent,
     RoomComponent,
     ProfileComponent,
-    LogoutComponent
+    LogoutComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,7 @@ const {
 const userRouter = require('./routes/user');
 const roomRouter = require('./routes/classroom');
 const assignmentRouter = require('./routes/assigment');
+const quizRouter = require('./routes/quiz');
 
 mongoose.connect(db, {
   useNewUrlParser: true,
@@ -36,6 +37,7 @@ app.use(cors());
 app.use('/user/', userRouter);
 app.use('/classroom', roomRouter);
 app.use('/assignment', assignmentRouter);
+app.use('/quiz', quizRouter);
 
 const port = 5000;
 app.listen(port, err => {

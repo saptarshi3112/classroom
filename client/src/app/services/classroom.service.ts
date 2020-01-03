@@ -57,4 +57,28 @@ export class ClassroomService {
       .pipe(map(res => res));
   }
 
+  createNewQuiz(name, description, classroom) {
+    return this._http.post(`${this.url}/quiz/addNewQuiz`, {
+      name: name,
+      description: description,
+      classroom: classroom
+    })
+      .pipe(map(res => res));
+  }
+
+  getQuizByRoom(id) {
+    return this._http.get(`${this.url}/quiz/getQuizzesByClassRoom/${id}`)
+      .pipe(map(res => res));
+  }
+
+  submitQuizSolution(id, data, classroom, user) {
+    return this._http.post(`${this.url}/quiz/submitQuizSolution`, {
+      quiz: id,
+      data: data,
+      classroom: classroom,
+      user: user
+    })
+      .pipe(map(res => res));
+  }
+
 }
