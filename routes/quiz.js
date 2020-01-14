@@ -8,6 +8,10 @@ const User = require('../models/User');
 
 const zipper = require('zip-local');
 
+const {
+  detectSimilarity
+} = require('../controllers/quizController');
+
 // Create a new quiz for a classroom.
 router.post('/addNewQuiz', (req, res) => {
   const body = req.body;
@@ -176,7 +180,7 @@ router.get('/exportFiles/quiz/:id', (req, res) => {
 
 // Verify the validity of certain quizzes.
 router.post('/detectSimilarity', (req, res) => {
-	const body = req.body;
+  const body = req.body;
 	if (!body) {
 		res.json({
 			message: 'BODY404'
@@ -184,13 +188,16 @@ router.post('/detectSimilarity', (req, res) => {
 	} else {
 
 		const {
-			file1, 
+		  file1,
 			file2
-		} = body;
+    } = body;
 
+    detectSimilarity(file1, file2)
+    .then(res1 => {
+      res.json(null);
+    });
 
 	}
 });
 
 module.exports = router;
-

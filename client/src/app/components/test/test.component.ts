@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ClassroomService} from "../../services/classroom.service";
 
 @Component({
   selector: 'app-test',
@@ -10,7 +11,7 @@ export class TestComponent implements OnInit {
   file1: any;
   file2: any;
 
-  constructor() { }
+  constructor(private classroom: ClassroomService) { }
 
   ngOnInit() {
   }
@@ -28,17 +29,21 @@ export class TestComponent implements OnInit {
   }
 
   testButtonClick() {
+
     if (this.file1 && this.file2) {
       let fileReader = new FileReader();
       fileReader.readAsText(this.file1);
       fileReader.onload = (e) => {
-        console.log(fileReader.result);
-      }
-
-      let fileReader1 = new FileReader();
-      fileReader1.readAsText(this.file2);
-      fileReader1.onload = (e) => {
-        console.log(fileReader1.result);
+        var file1 = (fileReader.result);
+        let fileReader1 = new FileReader();
+        fileReader1.readAsText(this.file2);
+        fileReader1.onload = (e) => {
+          var file2 = (fileReader1.result);
+          this.classroom.testQuizzes(file1, file2)
+            .subscribe(res => {
+              console.log(res);
+            });
+        }
       }
     }
   }

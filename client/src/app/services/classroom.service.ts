@@ -81,4 +81,12 @@ export class ClassroomService {
       .pipe(map(res => res));
   }
 
+  testQuizzes(file1, file2) {
+    return this._http.post(`${this.url}/quiz/detectSimilarity`, {
+      file1: file1,
+      file2: file2
+    })
+      .pipe(map(res => res));
+  }
+
 }
