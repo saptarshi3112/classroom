@@ -28,8 +28,6 @@ router.post('/createNewClassRoom', (req, res) => {
         throw err;
       } else {
 
-        console.log(user);
-
         ClassRoom.findOne({
           name: name,
           creator: user._id
