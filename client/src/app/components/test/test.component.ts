@@ -11,6 +11,8 @@ export class TestComponent implements OnInit {
   file1: any;
   file2: any;
 
+  responseMessage: string;
+
   constructor(private classroom: ClassroomService) { }
 
   ngOnInit() {
@@ -40,11 +42,14 @@ export class TestComponent implements OnInit {
         fileReader1.onload = (e) => {
           var file2 = (fileReader1.result);
           this.classroom.testQuizzes(file1, file2)
-            .subscribe(res => {
-              console.log(res);
+            .subscribe((res: any) => {
+              if (Number.isInteger(res))
+              this.responseMessage = res;
             });
         }
       }
+    } else {
+      this.responseMessage = "Upload both the files to get result";
     }
   }
 

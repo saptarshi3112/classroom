@@ -16,15 +16,9 @@ mongoose.connect(db, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
-});
-
-mongoose.connection.once('open', err => {
-  if (err) {
-    throw err;
-  } else {
-    console.log('mongodb running');
-  }
-});
+})
+.then(() => console.log('MONGODB connected'))
+.catch(err => console.error(err));
 
 const app = express();
 

@@ -179,7 +179,7 @@ router.get('/exportFiles/quiz/:id', (req, res) => {
 });
 
 // Verify the validity of certain quizzes.
-router.post('/detectSimilarity', (req, res) => {
+router.post('/detectSimilarity', async (req, res) => {
   const body = req.body;
 	if (!body) {
 		res.json({
@@ -187,15 +187,22 @@ router.post('/detectSimilarity', (req, res) => {
 		});
 	} else {
 
-		const {
+		let {
 		  file1,
 			file2
     } = body;
 
+    if (file2.length > file1.length) {
+      let temp = file2;
+      file2 = file1;
+      file1 = temp;
+    }
+
     detectSimilarity(file1, file2)
     .then(res1 => {
-      res.json(null);
-    });
+      res.json(res1);
+    })
+    .catch(err => console.error(err));
 
 	}
 });

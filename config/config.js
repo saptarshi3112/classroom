@@ -1,5 +1,5 @@
 const config = {
-  db: 'mongodb://127.0.0.1:27017/classroom',
+  db: 'mongodb+srv://saptarshi3112:ubuntu@1810@cluster0-vj2b4.mongodb.net/classroom',
   secret: 'supersecretjwtkey'
 };
 
